@@ -88,15 +88,48 @@ function draw() {
     text("depth: " + d, 20, 90);
   }
   if (mode === 3) {
-     mode=3;
-     console.log("not implemented yet");  }
+   
+    let angle = (seed % 8) * (PI / 4);
+    let scaleValue = 1 + (seed % 3) * 0.5;
+     for (let i = 0; i < shapes.length; i++) {
+      let s = shapes[i];
+       
+     push();
+    translate(s.x,s.y);
+    if(i===1){
+       rotate(frameCount * 0.02);
+    } else {
+    rotate(angle);
+}    
+    
+    scale(scaleValue);
+       fill(palette[s.color]);
+       stroke(0);
+
+       if(s.type===0){
+         rect(0,0,s.size,s.size);
+       }
+      if(s.type===1){
+         circle(0,0,s.size);
+       }
+      if(s.type===2){
+        triangle(0, 0, -s.size, s.size, s.size, s.size);
+       }
+       
+      pop()
+
+       
+    }
+  }
+} 
+  
   if (mode === 4) {
      mode=4;
      console.log("not implemented yet");  }
   if (mode === 5) {
      mode=5;
      console.log("not implemented yet");  }
-} 
+ 
 
 
 function keyPressed() {
