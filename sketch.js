@@ -12,18 +12,18 @@ let sierpinskiCount=0;
 let usePerspective=true;
 let angle2=0;
 
+
+
 let customFont;
 
 function preload() {
-  customFont = loadFont('RobotoCondensed-Regular.ttf');
+  customFont = loadFont('Roboto-Regular.ttf');
 }
 
 function setup() {
   createCanvas(400, 400, WEBGL);
-  //textFont(customFont); ما بشتغل الخط ابدا
+  textFont(customFont);
   CreateShape();
-
-
 }
 
 function draw() {
@@ -172,14 +172,34 @@ function draw() {
     box(90); 
     pop(); 
 
-    
-
   }
+  
   if (mode === 5) {
-     mode=5;
-     console.log("not implemented yet");  }
+   fill(30);
+    rect(15, 15, 370, 370);
 
+    fill(0, 255, 100);
+    textSize(14);
+    text("=== Module 5: Measure & Compare ===", 30, 45);
 
+    textSize(11);
+    fill(255);
+    text("depth    triangles    ratio", 40, 80);
+    
+    let depths = [3, 4, 5, 6,7];
+    let yPos = 120;
+    for (let i = 0; i < depths.length; i++) {
+      let dep = depths[i];
+      let tri = Math.pow(3, dep);
+      let ratio = i === 0 ? "-" : (Math.pow(3, depths[i]) / Math.pow(3, depths[i-1])).toFixed(2);
+      
+      text(dep + "         " + tri + "          " + ratio, 40, yPos);
+      yPos += 30;
+    }
+
+    fill(200, 200, 100);
+    text("C(n) = 3^d -> Exponential Growth O(3^d)", 40, yPos + 20);
+  }
   
 }
  
