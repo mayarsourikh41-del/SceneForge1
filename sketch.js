@@ -8,6 +8,7 @@ let palette = [
 ];
 let mode = 0; 
 let state = seed;
+let sierpinskiCount=0;
 
 function setup() {
   createCanvas(400, 400); 
@@ -73,8 +74,18 @@ function draw() {
   }
 
   if (mode === 2) {
-    mode=2;
-     console.log("not implemented yet");
+    sierpinskiCount=0;
+    let a=createVector(200,20);
+    let b=createVector(20,380);
+    let c=createVector(380,380);
+    sierpinski(a,b,c,d,1);
+    fill(0);
+    noStroke();
+    text("sierpinski count: " + sierpinskiCount, 20, 110);
+    text("seed: " + seed, 20, 30);
+    text("shapes: " + n, 20, 50);
+    text("palette colors: " + p, 20, 70);
+    text("depth: " + d, 20, 90);
   }
   if (mode === 3) {
      mode=3;
@@ -138,4 +149,19 @@ function CreateShape() {
       size: sizeSh
     });
   }
+}
+function sierpinski(a, b, c, depth,color1){
+   if (depth === 0) {
+     fill(palette[color1 % p]); 
+     stroke(0);
+     triangle(a.x,a.y, b.x,b.y, c.x,c.y);
+     sierpinskiCount++;
+     return;
+ }
+ let ab = p5.Vector.lerp(a,b,0.5);
+ let bc = p5.Vector.lerp(b,c,0.5);
+ let ca = p5.Vector.lerp(c,a,0.5);
+ sierpinski(a, ab, ca, depth-1,color1);
+ sierpinski(ab, b, bc, depth-1,color1+1);
+ sierpinski(ca, bc, c, depth-1,color1+2);
 }
