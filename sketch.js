@@ -95,13 +95,16 @@ function draw() {
       let s = shapes[i];
        
      push();
-    translate(s.x,s.y);
-    if(i===1){
+
+     if(i===1){
        rotate(frameCount * 0.02);
-    } else {
-    rotate(angle);
-}    
-    
+       translate(s.x,s.y);
+     } else {
+       translate(s.x,s.y);
+       rotate(angle);
+
+     }    
+   
     scale(scaleValue);
        fill(palette[s.color]);
        stroke(0);
