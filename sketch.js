@@ -173,7 +173,7 @@ function draw() {
     pop(); 
 
   }
-  
+  //في هاد الجزء استخدمت "chat gpt" في بعض الامورو الحسابات
   if (mode === 5) {
    fill(30);
     rect(15, 15, 370, 370);
@@ -191,6 +191,12 @@ function draw() {
     for (let i = 0; i < depths.length; i++) {
       let dep = depths[i];
       let tri = Math.pow(3, dep);
+      let x = 60 + i * 70;
+      let y = 330 - (tri / 15);
+      circle(x, y, 8);
+      text("Depth", 180, 350);
+      text("Triangles", 5, 180);
+      text("Triangles vs Depth", 140, 155);
       let ratio = i === 0 ? "-" : (Math.pow(3, depths[i]) / Math.pow(3, depths[i-1])).toFixed(2);
       
       text(dep + "         " + tri + "          " + ratio, 40, yPos);
@@ -199,6 +205,31 @@ function draw() {
 
     fill(200, 200, 100);
     text("C(n) = 3^d -> Exponential Growth O(3^d)", 40, yPos + 20);
+
+    text("Shapes vs Scene Size", 140, 100);
+    let sceneSizes = [5, 10, 15, 20, 25];
+    let shapesCount = [5, 10, 15, 20, 25];
+    line(210, 330, 380, 330);
+    line(210, 330, 210, 220);
+    for (let i = 0; i < sceneSizes.length; i++) {
+      let x = 220 + i * 30;
+      let y = 330 - shapesCount[i] * 4;
+      circle(x, y, 6);
+      text(sceneSizes[i], x - 5, 345);
+      text("Shapes", 170, 215);
+    }
+
+    line(40, 330, 360, 330);
+    line(40, 330, 40, 170);
+
+    for (let i = 0; i < depths.length; i++) {    
+      let run1 = Math.pow(3, depths[i]);
+      let run2 = Math.pow(3, depths[i]);
+      let run3 = Math.pow(3, depths[i]);
+
+    let average = (run1 + run2 + run3) / 3;
+      console.log("depth:", depths[i], "average:", average);
+
   }
   
 }
