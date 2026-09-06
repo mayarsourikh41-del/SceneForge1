@@ -9,18 +9,33 @@ let palette = [
 let mode = 0; 
 let state = seed;
 let sierpinskiCount=0;
+let usePerspective=true;
+let angle2=0;
+
+let customFont;
+
+function preload() {
+  customFont = loadFont('RobotoCondensed-Regular.ttf');
+}
 
 function setup() {
-  createCanvas(400, 400); 
+  createCanvas(400, 400, WEBGL);
+  //textFont(customFont); ما بشتغل الخط ابدا
   CreateShape();
+
+
 }
 
 function draw() {
   background(240);
 
+
   if (mode === 0) {
+ 
+    
     fill(0);
     textSize(18);
+    
     text("                 ======Menue======",20,50)
     textSize(14);
     text("1. Module 1: Shapes & Colors", 20, 80);
@@ -32,6 +47,7 @@ function draw() {
   }
 
   if (mode === 1) {
+    
     let rectCount = 0;
     let circleCount = 0;
     let triangleCount = 0;
@@ -87,6 +103,8 @@ function draw() {
     text("palette colors: " + p, 20, 70);
     text("depth: " + d, 20, 90);
   }
+
+  
   if (mode === 3) {
    
     let angle = (seed % 8) * (PI / 4);
@@ -95,16 +113,13 @@ function draw() {
       let s = shapes[i];
        
      push();
-
-     if(i===1){
+    translate(s.x,s.y);
+    if(i===1){
        rotate(frameCount * 0.02);
-       translate(s.x,s.y);
-     } else {
-       translate(s.x,s.y);
-       rotate(angle);
-
-     }    
-   
+    } else {
+    rotate(angle);
+}    
+    
     scale(scaleValue);
        fill(palette[s.color]);
        stroke(0);
@@ -124,14 +139,49 @@ function draw() {
        
     }
   }
-} 
+
   
   if (mode === 4) {
-     mode=4;
-     console.log("not implemented yet");  }
+    let r=400;
+    let eyeX=cos(angle2)*r;
+    let eyeZ=sin(angle2)*r;
+    
+    camera(eyeX,0,eyeZ,0,0,0,0,1,0);
+    angle2 += 0.01;
+
+    
+    if(usePerspective===true){
+      perspective(PI/3,width/height,1,2000);
+  }else{
+   ortho(-300, 300, -200, 200, 1, 2000);
+  }
+    
+   ambientLight(110);
+   pointLight(255, 255, 255, 0, -300, 300);
+    
+   push(); 
+    translate(-120, 0, 100);
+    specularMaterial(237,49,19); 
+    box(90); 
+    pop(); 
+
+    
+   push();
+    translate( 120, 0, -150);
+    specularMaterial(23,143,66);
+    box(90); 
+    pop(); 
+
+    
+
+  }
   if (mode === 5) {
      mode=5;
      console.log("not implemented yet");  }
+
+
+  
+}
  
 
 
